@@ -1,0 +1,104 @@
+(* Problem: 1      *)
+(* Author:  Joseph *)
+
+A(λx.λy.y)B
+
+(* Problem: 2      *)
+(* Author:  Joseph *)
+
+[A(λx.λy.y)(λx.λy.x)](λx.λy.x)[B(λx.λy.y)(λx.λy.x)]
+
+(* Problem: 3      *)
+(* Author:  Joseph *)
+λx.λy.x
+True
+
+(* Problem: 4      *)
+(* Author:  Joseph *)
+(3,2)∈S
+If (x,y)∈S, then (3x−2y,x)∈S(3x−2y,x)∈S
+
+(x,y)=(2^n+1+1,2^n+1)
+
+Check:
+x=2^n+1+1 , y=2^n+1.
+x=2^n+1+1 , y=2^n+1
+
+(* Problem: 5      *)
+(* Author:  Joseph *)
+Definitions:
+    reflect x: Reflect the tree (swap left and right subtrees).
+    inorder x: Inorder traversal of a tree.
+    rev x: Reverses the list xx.
+
+Base Case:
+    reflect(Empty)=Empty
+    inorder(Empty)=[]
+    rev(inorder(reflect(Empty)))=rev([])=[]
+    inorder(Empty)=[]
+
+Consider a tree xx with nn nodes. Let the tree have a root rr, left subtree ll, and right subtree rr.
+    Reflect xx: reflect(x)=Node(r,reflect(r),reflect(l))
+    Inorder traversal of the reflected tree:
+    inorder(reflect(x))=inorder(reflect(r))+[r]+inorder(reflect(l))
+    Reversing the inorder traversal:
+    rev(inorder(reflect(x)))=rev(inorder(reflect(l)))+[r]+rev(inorder(reflect(r)))
+    By the inductive hypothesis:
+    rev(inorder(reflect(l)))=inorder(l) and rev(inorder(reflect(r)))=inorder(r)
+    Thus:
+    rev(inorder(reflect(x)))=inorder(l)+[r]+inorder(r)
+
+This is exactly the inorder traversal of the original tree xx:
+inorder(x)=inorder(l)+[r]+inorder(r)
+
+Therefore:
+rev(inorder(reflect(x)))=inorder(x)
+
+(* Problem: 6      *)
+(* Author:  Joseph *)
+Definitions:
+    reflect x: Reflect the tree (swap left and right subtrees).
+    postorder x: Postorder traversal of a tree (left, right, root).
+    preorder x: Preorder traversal of a tree (root, left, right).
+    rev x: Reverses the list xx.
+
+Base Case:
+    reflect(Empty)=Emptyreflect(Empty)=Empty
+    postorder(Empty)=[]postorder(Empty)=[]
+    preorder(Empty)=[]preorder(Empty)=[]
+    rev(preorder(Empty))=rev([])=[]rev(preorder(Empty))=rev([])=[]
+
+Thus, postorder(reflect(Empty))=rev(preorder(Empty))
+Inductive Step:
+
+Consider a tree xx with nn nodes. Let the tree have a root rr, left subtree ll, and right subtree rr.
+
+    Reflect xx:
+    reflect(x)=Node(r,reflect(r),reflect(l))
+
+    Postorder traversal of the reflected tree:
+    postorder(reflect(x))=postorder(reflect(r))+postorder(reflect(l))+[r]
+
+    Preorder traversal of xx:
+    preorder(x)=[r]+preorder(l)+preorder(r)
+
+    Reversing the preorder traversal:
+    rev(preorder(x))=rev([r]+preorder(l)+preorder(r))
+
+    Using the property of list reversal:
+    rev(preorder(x))=rev(preorder(r))+rev(preorder(l))+[r]
+
+    Using the inductive hypothesis:
+    By the inductive hypothesis, we know that:
+        postorder(reflect(r))=rev(preorder(r))postorder(reflect(r))=rev(preorder(r))
+
+    Final result:
+    Substituting these into the equation for postorder of the reflected tree:
+    postorder(reflect(x))=rev(preorder(r))+rev(preorder(l))+[r]
+
+This is exactly:
+rev(preorder(x))
+Conclusion:
+
+postorder(reflect(x))=rev(preorder(x))
+
